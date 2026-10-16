@@ -1,0 +1,31 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: holdmyseat
+      POSTGRES_USER: holdmyseat
+      POSTGRES_PASSWORD: holdmyseat
+    ports:
+      - "5432:5432"
+    volumes:
+      - holdmyseat_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U holdmyseat -d holdmyseat"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: .
+    environment:
+      DATABASE_URL: postgresql+psycopg://holdmyseat:holdmyseat@db:5432/holdmyseat
+      SEAT_COUNT: 500
+      HOLD_MINUTES: 5
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  holdmyseat_data:
