@@ -1,4 +1,4 @@
-# HoldMySeat — Fair-Queue Concert Ticket Booking Backend
+# HoldMySeat — Fair-Queue Seat Ticket Booking Backend
 
 HoldMySeat is a beginner-friendly Python backend prototype for a college concert with 500 seats and a large booking rush. Students join a server-numbered queue, are admitted in order, temporarily reserve seats, and simulate payment. PostgreSQL transactions protect seat claims.
 
